@@ -7,18 +7,18 @@ const theOldWay = function(course) {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log('The old way:', theOldWay('Code 301'));
+//console.log('The old way:', theOldWay('Code 301'));
 
 
 // STEP 2
 // We can refactor our first function to use an arrow function.
 // The word "function" is removed and an arrow is added in between the parameter and the opening curly brace
-const theNewWay = (course) => {
-  return `I am currently enrolled in ${course}`;
-};
+const theNewWay = (course) =>
+ `I am currently enrolled in ${course}`;
+;
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log('The new way:', theNewWay('Code 301'));
+//console.log('The new way:', theNewWay('Code 301'));
 
 
 // STEP 3
@@ -49,7 +49,7 @@ const add = function(num1, num2) {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log('Let\'s do some math:', add(4, 5));
+//console.log('Let\'s do some math:', add(4, 5));
 
 
 // STEP 6
@@ -108,78 +108,123 @@ const newObject = array => ({
 
 
 
-let sum = function(a, b, c, d) {
-  return a + b + c + d;
-};
+// let sum = function(a, b, c, d) {
+//   return a + b + c + d;
+// };
+
+// Solution:
+const sum = (a, b, c, d) => a + b + c +d;
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(sum(1, 2, 3, 4));
+console.log(sum(1, 2, 3, 4));
 
 
-let objectLit = function() {
-  return {
-    key1: 'value1',
-    key2: 'value2',
-    key3: 'value3',
-  };
-};
+// let objectLit = function() {
+//   return {
+//     key1: 'value1',
+//     key2: 'value2',
+//     key3: 'value3',
+//   };
+// };
+
+// Solution:
+const objectLit = () => ({
+  key1: 'value1',
+  key2: 'value2',
+  key3: 'value3',
+});
+
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(objectLit());
+console.log(objectLit());
 
 
-let sumAndProduct = function(a, b) {
+// let sumAndProduct = function(a, b) {
+//   let sum = a + b;
+//   let product = a * b;
+//   return [sum, product];
+// };
+
+//Solution:
+const sumAndProduct = (a, b) => {
   let sum = a + b;
   let product = a * b;
   return [sum, product];
-};
+}
+
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(sumAndProduct(3, 9));
+console.log(sumAndProduct(3, 9));
 
 
-let message = function(name) {
-  return `Hello, ${name}!`;
-};
+// let message = function(name) {
+//   return `Hello, ${name}!`;
+// };
+ 
+// Solution:
+let message = (name) => `Hello, ${name}!`;
+
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(message('Allie'));
+console.log(message('Allie'));
 
 
-let Student = function(name, age, hometown) {
+// let Student = function(name, age, hometown) {
+//   this.name = name;
+//   this.age = age;
+//   this.hometown = hometown;
+// };
+
+// let joe = new Student('Joe Schmoe', 100, 'Anytown, USA');
+
+
+//Solution:
+function Student(name, age, hometown) {
   this.name = name;
   this.age = age;
   this.hometown = hometown;
+    this.greeting = () => {
+    return `Hi, my name is ${this.name}`; // 'this' now refers to the Student instance
+  };
+}
+
+Student.prototype.sayInfo = () => {
+  console.log(this); 
+  console.log(`Name: ${this.name}, Age: ${this.age}, Hometown: ${this.hometown}`);
 };
 
 let joe = new Student('Joe Schmoe', 100, 'Anytown, USA');
 
+
 // TODO: Uncomment the following line of code to see the output in the browser console
 // Note that the arrow function will cause this code to break!
-// console.log(joe);
+console.log(joe);
 
 // TODO: After viewing the previous console.log(), return the code to a working state.
 
 
 
-Student.prototype.greeting = function() {
-  return `Hi, my name is ${this.name}`;
-};
+// Student.prototype.greeting = function() {
+//   return `Hi, my name is ${this.name}`;
+// };
+
+//Solution: was inserted above into the function Student() show here below this line commented out
+// this.greeting = () => {
+//   return `Hi, my name is ${this.name}`; // 'this' now refers to the Student instance
+// };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
 // Note that the arrow function will cause this method to break!
-// console.log(joe.greeting());
+console.log(joe.greeting());
 
 // TODO: After viewing the previous console.log(), return the code to a working state.
 
 
 
-Student.courseName = function() {
-  return 'This student is enrolled in Code 301.';
-};
+Student.courseName = () => 'This student is enrolled in Code 301.';
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(Student.courseName());
+console.log(Student.courseName());
 
 
 
@@ -190,17 +235,17 @@ Student.prototype.scope = function() {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// joe.scope();
+joe.scope();
 
 Student.prototype.scopeArrow = () => console.log(this);
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// joe.scopeArrow();
+joe.scopeArrow();
 
 // TODO: Write a COMMENT below to answer the following questions.
 // 1. What is "this" when joe.scope() is invoked?
-//
+// When joe.scope() is invoked, this refers to the joe object instance. In other words, this within the scope method points to the object on which the method was called, which is joe in this case.
 // 2. What is "this" when joe.scopeArrow() is invoked?
-//
+// When joe.scopeArrow() is invoked, this refers to the global object (or undefined in strict mode). This happens because arrow functions do not have their own this binding and instead inherit this from the surrounding lexical scope. In this case, since scopeArrow is an arrow function defined in the global scope, this refers to the global object.
 // 3. Explain why "this" is different when an arrow function is used.
-//
+// Arrow functions capture this lexically from their enclosing scope, meaning they do not bind their own this value but rather inherit it from the surrounding context. This behavior differs from regular functions, which have their own this binding that depends on how they are invoked. As a result, when an arrow function is used, this does not change based on how or where the function is called, leading to potentially different behavior compared to regular functions.
